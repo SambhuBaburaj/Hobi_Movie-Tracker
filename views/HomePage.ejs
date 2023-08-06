@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+<head>
+    <title>My Movie Search Page</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        nav {
+            background-color: #000000;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        .center-panel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60vh;
+        }
+   
+        .movies-search {
+            margin-top: 20px;
+            
+        }
+
+
+
+        /* Styles for the popup overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Styles for the popup content */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Movie Search Page</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+        <div class="search-bar1">
+            <!-- Your center search bar content here -->
+              <div class="search-container1 ">
+
+        <input
+          type="text"
+          placeholder="Search Usere..."
+          id="user name"
+          
+        />
+        <button id="search-btn1">Search</button>
+        
+         <input id="playlist" hidden value="<%= locals.playlistdata %>" type="text">
+      </div>
+        </div>
+    </nav>
+    <div class="container">
+        <i class="fa-solid fa-user" style="color: #ffffff;"></i>
+         
+          <div class="search-container">
+    
+            <input
+              type="text"
+              placeholder="Enter movie name heree..."
+              id="movie-name"
+              value="dark knight"
+            />
+          
+
+            <button id="search-btn">Search</button>
+          </div>
+
+          
+          <div id="result"></div>
+          <div id="playlist-data" style=" display: none;"><%- JSON.stringify(playlistdata) %></div>
+
+
+        </div>
+     
+    <script src="assets/js/Search/key.js"></script>
+    <script src="assets/js/Search/search.js"></script>
+    <script>
+        function toggleDropdown(className) {
+
+
+  const dropdown = document.querySelector(`.${className}`);
+  dropdown.classList.toggle("active");
+
+
+
+}
+
+    </script>
+    <script>
+        // Function to open the popup
+        function openPopup(data) {
+
+if(data)
+{
+    document.getElementById("overlaypublic").style.display = "block";
+
+}
+else{
+    document.getElementById("overlay").style.display = "block";
+
+}
+        }
+
+        // Function to close the popup
+        function closePopup(data) {
+            if (data) {
+            document.getElementById("overlaypublic").style.display = "none";
+                
+            } else {
+            document.getElementById("overlay").style.display = "none";
+                
+            }
+        }
+
+        // Function to handle input submission
+        function submitInput() {
+            const inputField = document.getElementById("inputField");
+            const userInput = inputField.value;
+            // You can perform further actions with the user input here
+            console.log("User input:", userInput);
+            closePopup();
+        }
+    </script>
+ <div class="overlay" id="overlay">
+    <!-- Popup content -->
+    <div class="popup">
+        <h2>Enter Your private playlist Name:</h2>
+        <form action="/addplaylist"  method="post">
+            <input name="playlist" type="text" id="inputField">
+            <input  name="type" hidden value="0" type="text">
+            <br>
+                <button  >Submit</button>
+                <button type="button"  onclick="closePopup(0)">Cancel</button>
+
+        </form>
+  
+    </div>
+</div>
+
+
+<div class="overlay" id="overlaypublic">
+    <!-- Popup content -->
+    <div class="popup">
+        <h2>Enter Your public playlist Name:</h2>
+        <form action="/addplaylist"  method="post">
+            <input name="playlist" type="text" id="inputField">
+            <input name="type" hidden value="1" type="text">
+            <br>
+    
+                <button  >Submit</button>
+
+                <button type="button" onclick="closePopup(1)">Cancel</button>
+
+
+        </form>
+
+  
+    </div>
+</div>
+</body>
+<script>
+    
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</html>

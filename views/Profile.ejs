@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+
+  <link rel="stylesheet" href="/stylesheets/profile.css" />
+
+</head>
+<nav>
+  <ul>
+      <li><a href="/homepage">Home</a></li>
+      <li><a href="/profile">Profile</a></li>
+      <li><a href="/logout">Logout</a></li>
+  </ul>
+  <div class="search-bar1">
+      <!-- Your center search bar content here -->
+        <div class="search-container1 ">
+
+  <input
+    type="text"
+    placeholder="Search Usere..."
+    id="user name"
+    
+  />
+  <button id="search-btn1">Search</button>
+  
+   <input id="playlist" hidden value="<%= locals.playlistdata %>" type="text">
+</div>
+  </div>
+</nav>
+<body>
+  <header>
+    <h1>Welcome, <span id="username"><%= locals.user.username %></span>!</h1>
+    <% console.log(locals.user.username) %>
+  </header>
+  
+  <main>
+    <div class="options-container">
+      <button class="option-button" onclick="showPrivateMovies()">Private Movies</button>
+      <button class="option-button" onclick="showPublicMovies()">Public Movies</button>
+    </div>
+
+</header>
+
+ 
+  
+
+    <div id="private-movies" class="movie-list">
+ 
+        <ul>
+            <h2 >My Private Playlist</h2>
+         
+
+            <% locals.playlist.forEach(function (Product, index) { %>
+              <% if(Product.public==false) {%> 
+
+
+
+                <li>
+                  <button class="dropdown-button" onclick="toggleMovieList('<%= index %>')"><%= Product.Name %></button>
+                  <div id="movie-list<%= index %>" class="movie-list">
+                    <div class="grid-container">
+                      <% Product.Movies.forEach(function (element) { %>
+                        <div class="movie-card">
+                          <h3><%= element.Title %></h3>
+                          <img class="poster" src="<%= element.Poster %>" alt="<%= element.Title %>">
+                          <p><%= element.Description %></p>
+                          <button class="remove-button" onclick="removeMovie(this)">Remove from Playlist</button>
+                        </div>
+                      <% }) %>
+                    </div>
+                  </div>
+                </li>
+
+<%} %>
+
+ 
+          
+            <% }) %>
+           
+        
+            <!-- Add more public movies here -->
+          </ul>
+
+    </div>
+    
+    <div id="public-movies" class="movie-list">
+   
+      <ul>
+      <h2 >My public Playlist</h2>
+
+      <% locals.playlist.forEach(function (Product, index) { %>
+        <% if(Product.public==true) {%> 
+
+
+
+          <li>
+            <button class="dropdown-button" onclick="toggleMovieList('<%= index %>')"><%= Product.Name %></button>
+            <div id="movie-list<%= index %>" class="movie-list">
+              <div class="grid-container">
+                <% Product.Movies.forEach(function (element) { %>
+                  <div class="movie-card">
+                    <h3><%= element.Title %></h3>
+                    <img class="poster" src="<%= element.Poster %>" alt="<%= element.Title %>">
+                    <p><%= element.Description %></p>
+                    <button class="remove-button" onclick="removeMovie(this)">Remove from Playlist</button>
+                  </div>
+                <% }) %>
+              </div>
+            </div>
+          </li>
+
+<%} %>
+
+
+    
+      <% }) %>
+        <!-- Add more public movies here -->
+      </ul>
+    </div>
+    
+  </main>
+</body>
+<script>function showPrivateMovies() {
+    document.getElementById('private-movies').classList.add('show');
+    document.getElementById('public-movies').classList.remove('show');
+  }
+  
+  function showPublicMovies() {
+    document.getElementById('private-movies').classList.remove('show');
+    document.getElementById('public-movies').classList.add('show');
+  }
+  
+  function toggleMovieList(n) {
+    console.log(n);
+    
+  const movieList = document.getElementById('movie-list'+n);
+  movieList.classList.toggle('show');}
+
+
+  </script>
+</html>
+<!-- <header>
+    <h1>Movie Playlist</h1>
+  </header>
+  
+  <main>
+    <div class="playlist-container">
+      <h2>My Playlist</h2>
+      <button class="dropdown-button" onclick="toggleMovieList()">Show Movies</button>
+      <div id="movie-list" class="movie-list">
+        <div class="movie-item">Movie 1</div>
+        <div class="movie-item">Movie 2</div>
+        <div class="movie-item">Movie 3</div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+function toggleMovieList() {
+  const movieList = document.getElementById('movie-list');
+  movieList.classList.toggle('show');
+}
+
+</script> -->
