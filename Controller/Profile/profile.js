@@ -13,4 +13,4 @@ const play=await Playlistdata.find({ UserId: new mongoose.Types.ObjectId(user._i
 res.render("Profile", { playlist: play,user:user});
  
 }
-module.exports={Profile}  
+module.exports={Profile}    
