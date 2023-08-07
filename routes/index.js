@@ -6,7 +6,7 @@ const {
   AddPlaylist,
   addingplaylist,
 } = require("../Controller/HomePage/PlayList");
-const { Profile } = require("../Controller/Profile/profile");
+const { Profile, removeMovie } = require("../Controller/Profile/profile");
 const { SessionCheck } = require("../Controller/HomePage/SessionCheck");
 var router = express.Router();
 
@@ -22,8 +22,8 @@ router.get("/", function (req, res, next) {
 router.post("/Create-account", CreateAccount);
 router.post("/login", login);
 
-router.get("/home", function (req, res, next) {
-  res.render("Home", { title: "Express" });
+router.get("/removemovie",removeMovie, function (req, res, next) {
+console.log(req.query);
 });
 router.get(
   "/homepage",

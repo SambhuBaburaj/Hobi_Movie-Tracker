@@ -58,8 +58,6 @@
             <% locals.playlist.forEach(function (Product, index) { %>
               <% if(Product.public==false) {%> 
 
-
-
                 <li>
                   <button class="dropdown-button" onclick="toggleMovieList('<%= index %>')"><%= Product.Name %></button>
                   <div id="movie-list<%= index %>" class="movie-list">
@@ -69,7 +67,10 @@
                           <h3><%= element.Title %></h3>
                           <img class="poster" src="<%= element.Poster %>" alt="<%= element.Title %>">
                           <p><%= element.Description %></p>
-                          <button class="remove-button" onclick="removeMovie(this)">Remove from Playlist</button>
+                          <a href="/removemovie?param1=<%= Product._id %>&param2=<%= element.imdbID %>">
+                            <button class="remove-button">Remove from Playlist</button>
+
+                          </a>
                         </div>
                       <% }) %>
                     </div>
@@ -106,8 +107,11 @@
                   <div class="movie-card">
                     <h3><%= element.Title %></h3>
                     <img class="poster" src="<%= element.Poster %>" alt="<%= element.Title %>">
-                    <p><%= element.Description %></p>
-                    <button class="remove-button" onclick="removeMovie(this)">Remove from Playlist</button>
+                    <p><%= element.Year %></p>
+                    <a href="/removemovie?param1=<%= Product._id %>&param2=<%= element.imdbID %>">
+                      <button class="remove-button">Remove from Playlist</button>
+
+                    </a>
                   </div>
                 <% }) %>
               </div>
