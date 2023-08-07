@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const { Playlistdata } = require("../../model/UserSchema");
-
+// const fetch = require('node-fetch');
+const axios = require('axios');
 const Homepage = async (req, res) => {
   const User = req.session.user;
 
@@ -42,10 +43,11 @@ const addingplaylist = async (req, res) => {
   console.log(url);
   console.log(req.body);
 
-  fetch(url)
-    .then((resp) => resp.json())
+ await axios.get(url)
+    // .then((resp) => {console.log( resp.data)
+    //    resp.data.json()})
     .then(async (data) => {
-      const moviedatails = data;
+      const moviedatails = data.data;
 
       await Playlistdata.findById(
         new mongoose.Types.ObjectId(req.body.userid)
