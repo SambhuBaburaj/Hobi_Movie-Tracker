@@ -79,7 +79,7 @@ const divprivateContent =playlistData.map(element => {
 
   if(element.public==0)
   {
-console.log(element._id,'in here');
+
   return `<a onclick="addingplaylist('${element._id}','${url}')">${element.Name}</a>`;
   
   }  
@@ -91,6 +91,8 @@ console.log(element._id,'in here');
 let getMovie = () => {
   let movieName = movieNameRef.value;
   let url = `http://www.omdbapi.com/?t=${movieName}&apikey=${key}`;
+  console.log('url');
+  console.log(url);
   //If input field is empty
   if (movieName.length <= 0) {
     result.innerHTML = `<h3 class="msg">Please Enter A Movie Name</h3>`;
@@ -104,6 +106,7 @@ let getMovie = () => {
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data);
+        console.log('this the moviee data');
         //If movie exists in database
         if (data.Response == "True") {
           result.innerHTML = `
