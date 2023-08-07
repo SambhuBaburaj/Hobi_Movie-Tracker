@@ -41,7 +41,7 @@ const addingplaylist = async (req, res) => {
   const url = req.body.urldata;
   console.log(url);
   console.log(req.body);
-  const movie = await fetch(url);
+
   fetch(url)
     .then((resp) => resp.json())
     .then(async (data) => {
