@@ -22,7 +22,7 @@ router.get("/", function (req, res, next) {
 router.post("/Create-account", CreateAccount);
 router.post("/login", login);
 
-router.get("/home",SessionCheck, function (req, res, next) {
+router.get("/home", function (req, res, next) {
   res.render("Home", { title: "Express" });
 });
 router.get(

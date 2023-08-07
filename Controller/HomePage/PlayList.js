@@ -9,22 +9,8 @@ const Homepage = async (req, res) => {
     UserId: new mongoose.Types.ObjectId(User._id),
   });
 
-
-
-
-
-  res.render("Homepage", { playlistdata: playlist });
+  res.render("HomePage", { playlistdata: playlist });
 };
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -32,7 +18,6 @@ const AddPlaylist = (req, res) => {
   const user = req.session.user;
 
   if (Number(req.body.type)) {
- 
     console.log(req.body);
     Playlistdata({
       UserId: new mongoose.Types.ObjectId(user._id),
@@ -52,54 +37,32 @@ const AddPlaylist = (req, res) => {
   }
 };
 
-
-
-
-
-const addingplaylist=async (req,res)=>
-{
-
-  const url=req.body.urldata
+const addingplaylist = async (req, res) => {
+  const url = req.body.urldata;
   console.log(url);
   console.log(req.body);
-  const movie=await fetch(url)
+  const movie = await fetch(url);
   fetch(url)
-  .then((resp) => resp.json())
-  .then(async (data) => {
+    .then((resp) => resp.json())
+    .then(async (data) => {
+      const moviedatails = data;
 
-const moviedatails=data
+      await Playlistdata.findById(
+        new mongoose.Types.ObjectId(req.body.userid)
+      ).then(async (data) => {
+        if (data.Movies.some((obj) => obj.imdbID === moviedatails.imdbID)) {
+          res.json(false);
+        } else {
+          await Playlistdata.findByIdAndUpdate(
+            new mongoose.Types.ObjectId(req.body.userid),
+            { $push: { Movies: moviedatails } },
+            { new: true } // To return the updated document
+          ).then((data) => {
+            res.json(true);
+          });
+        }
+      });
+    });
+};
 
-await Playlistdata.findById(new mongoose.Types.ObjectId(req.body.userid)).then(async data=>
-  {
-
-
-if(data.Movies.some((obj) => obj.imdbID === moviedatails.imdbID))
-{
-  res.json(false);
-}
-else{ 
-
-  await Playlistdata.findByIdAndUpdate(
-    new mongoose.Types.ObjectId(req.body.userid) ,
-      { $push: { Movies: moviedatails } },
-      { new: true } // To return the updated document
-    ).then(data=>
-      {
-     
-        res.json(true);
-
-      })
-
-}
-  })
-
-  
-
-  })
-
-
-}
-
-
-module.exports = { Homepage, AddPlaylist,addingplaylist };
- 
+module.exports = { Homepage, AddPlaylist, addingplaylist };
