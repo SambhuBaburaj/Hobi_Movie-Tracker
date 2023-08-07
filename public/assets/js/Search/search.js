@@ -90,7 +90,7 @@ const divprivateContent =playlistData.map(element => {
 //Function to fetch data from API
 let getMovie = () => {
   let movieName = movieNameRef.value;
-  let url = `http://www.omdbapi.com/?t=${movieName}&apikey='28cce2b6'`;
+  let url = `https://www.omdbapi.com/?t=${movieName}&apikey=${key}`;
   console.log('url');
   console.log(url);
   //If input field is empty
