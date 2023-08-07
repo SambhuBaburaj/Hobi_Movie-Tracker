@@ -5,12 +5,12 @@ let result = document.getElementById("result");
 const playlistDataElement = document.getElementById('playlist-data');
 const playlistData = JSON.parse(playlistDataElement.textContent);
 let movieName = movieNameRef.value;
-let url = `http://www.omdbapi.com/?t=${movieName}&apikey=${key}`;
+let url = `https://www.omdbapi.com/?t=${movieName}&apikey=${key}`;
 
 function addingplaylist(movie,urldata)
 {
   let movieName = movieNameRef.value;
-  movieurl=`http://www.omdbapi.com/?t=${movieName}&apikey=${key}`
+  movieurl=`https://www.omdbapi.com/?t=${movieName}&apikey=${key}`
   console.log(movie,urldata);
   console.log('clicked');
     event.preventDefault()
